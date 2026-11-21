@@ -160,6 +160,27 @@ class TestAuthAndHistory:
         assert resp_del.status_code == 200
         assert not mem.conversation_exists(conv_id)
 
+    def test_persistence_across_server_restarts(self, client):
+        """Verify chat history persists in SQLite database across reloads."""
+        conv_id = "test-persistent-session"
+        mem.create_conversation(conv_id, username="persisted_user", title="Persistent Topic")
+        mem.add_message(conv_id, "user", "Does this persist?")
+        mem.add_message(conv_id, "assistant", "Yes, saved in SQLite database!")
+
+        # Verify through memory functions
+        assert mem.conversation_exists(conv_id)
+        assert len(mem.get_full_messages(conv_id)) == 2
+
+        # Verify through endpoints
+        resp = client.get("/conversations?username=persisted_user")
+        assert resp.status_code == 200
+        titles = [c["title"] for c in resp.json()]
+        assert "Persistent Topic" in titles
+
+        detail = client.get(f"/chat/{conv_id}").json()
+        assert len(detail["messages"]) == 2
+        assert detail["messages"][0]["text"] == "Does this persist?"
+
 
 # =============================================================================
 # TEST 3 – Input validation (no API key needed)

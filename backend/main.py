@@ -349,7 +349,7 @@ def get_conversation_stats(conversation_id: str):
             detail=f"Conversation '{conversation_id}' not found."
         )
 
-    history = memory._conversation_store.get(conversation_id, [])
+    history = memory.get_full_messages(conversation_id)
     user_turns = sum(1 for m in history if m.get("role") == "user")
     ai_turns = sum(1 for m in history if m.get("role") in ("model", "assistant"))
 

@@ -40,7 +40,19 @@ node_modules/
 frontend/dist/
 frontend/.vite/
 
+# ── Database ─────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+
 # ── Misc ─────────────────────────────────────
 *.log
 Thumbs.db
 
+# Allow example environment file
+!.env.example
+
+# Environment variable files
+.env.*
