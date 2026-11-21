@@ -1,0 +1,46 @@
+# .gitignore
+
+# ── Python ──────────────────────────────────
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Environment variables (contains secrets!)
+.env
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Distribution / build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# ── Node / React ─────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ── Misc ─────────────────────────────────────
+*.log
+Thumbs.db
+
